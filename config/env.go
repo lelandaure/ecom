@@ -18,9 +18,12 @@ type Config struct {
 var Envs = initConfig()
 
 func initConfig() Config {
-	godotenv.Load()
+	err := godotenv.Load()
+	if err != nil {
+		return Config{}
+	}
 	return Config{
-		PublicHost: getEnv("PUBLIC_HOST", "http://localhost"),
+		//PublicHost: getEnv("PUBLIC_HOST", "http://localhost"),
 		Port:       getEnv("PORT", "8080"),
 		DBUser:     getEnv("DB_USER", "root"),
 		DBPassword: getEnv("DB_PASSWORD", "mypassword"),
